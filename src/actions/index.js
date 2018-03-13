@@ -1,5 +1,5 @@
 import { AUTH_USER, UNAUTH_USER, 
-            AUTH_ERROR, FETCH_MESSAGE } from './types';
+            AUTH_ERROR, FETCH_MESSAGE, API } from './types';
 import axios from 'axios';
 
 const ROOT_URL = 'http://localhost:3030';
@@ -68,16 +68,15 @@ export function signUpUser(history, { email, password}) {
     }
 }
 
+//Another better aproach is delegate the async api call to middleware, making my action more easy to test
 export function fetchMessage() {
-    return dispatch => {
-        axios.get(ROOT_URL, { headers: { authorization: localStorage.getItem('token') } })
-            .then(response => {
-                // console.log(response);
-
-                dispatch({
-                    type: FETCH_MESSAGE,
-                    payload: response.data.message
-                });
-            });
+    return {
+        type: API,
+        meta: {
+            url: ROOT_URL,
+            method: 'GET',
+            throttle: 2000,
+            callback: (data) => ({ type: FETCH_MESSAGE, payload: data.message })
+        }
     }
 }

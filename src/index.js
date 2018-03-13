@@ -9,8 +9,12 @@ import App from './components/app';
 import reducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 import { AUTH_USER } from './actions/types';
+import logMiddleware from './middleware/log';
+import apiMiddleware from './middleware/api';
+import throttledMiddleware from './middleware/throttled';
 
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(logMiddleware, throttledMiddleware, 
+                                                        apiMiddleware, reduxThunk)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const token = localStorage.getItem('token');

@@ -10,6 +10,7 @@ import RequireAuth from './auth/require_auth';
 import Welcome from './welcome';
 
 export default class App extends Component {
+  
   render() {
     return (
       <div>

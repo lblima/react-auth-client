@@ -1,3 +1,5 @@
+//HoC for check authentication
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 

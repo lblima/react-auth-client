@@ -8,9 +8,18 @@ class Feature extends Component {
         this.props.fetchMessage();
     }
 
+    fetchMessage() {
+        this.props.fetchMessage();
+    }
+
     render() {
         return (
-            <div>{ this.props.message}</div>
+            <div>
+                { this.props.message}
+                <div>
+                    <button onClick={() => this.fetchMessage() }>Fetch Message Again</button>
+                </div>
+            </div>
         )
     }
 }
